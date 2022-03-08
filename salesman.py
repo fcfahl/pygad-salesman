@@ -31,17 +31,12 @@ def find_smallest_distance(array):
 
     return min_distance, max_distance
 
-
-
-def fitness(route, index):
+def calc_distance(route):
+    
     distance = 0.0
     cities_visited = [0]    # adiciona primeira cidade com 0
-    # route.append(0)         # adiciona ultima cidade com 0
 
-    min_distance, max_distance = find_smallest_distance (cities)
-    
-    for n in route:        
-
+    for n in route:    
         if n in cities_visited:
             distance += 10000        
 
@@ -49,9 +44,12 @@ def fitness(route, index):
         cities_visited.append(n)
         # print (cities_visited)
 
-    distance += cities[len(cities_visited)-1][0]    
+    return distance
 
-    return ((distance -min_distance)/(max_distance-min_distance))
+def fitness(route, index):
+
+    min_distance, max_distance = find_smallest_distance (cities)    
+    return ((calc_distance(route)-min_distance)/(max_distance-min_distance))
 
 # Load data
 cities = pd.read_csv('matrix_distances.csv', header=None).values.tolist()
@@ -93,14 +91,17 @@ ga_instance = pygad.GA(
     fitness_func=fitness_func,
 )
 
-# ga_instance.run()
-# ga_instance.plot_fitness()
-# ga_instance.plot_genes()
+ga_instance.run()
+ga_instance.plot_fitness()
+ga_instance.plot_genes()
 
-
-# solution, solution_fitness, solution_idx = ga_instance.best_solution()
-# print("Parameters of the best solution : {solution}".format(solution=solution))
-# print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+solution, solution_fitness, solution_idx = ga_instance.best_solution()
+print("Parameters of the best solution : {solution}".format(solution=solution))
+print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+print("Best distance = {distance}".format(distance=calc_distance(solution)))
 
 # route_test = [3,2,1,4,5,6,7] # nao incluir 0
 # print (fitness(route_test))
+
+
+verificar resultado -- fitness too high 
