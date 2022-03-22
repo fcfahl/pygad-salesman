@@ -104,4 +104,3 @@ print("Best distance = {distance}".format(distance=calc_distance(solution)))
 # print (fitness(route_test))
 
 
-verificar resultado -- fitness too high 
