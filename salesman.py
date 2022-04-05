@@ -74,9 +74,10 @@ num_generations         = 100
 sol_per_pop             = 100               # numero de interaçoes
 parent_selection_type   = 'rws'              
 crossover_type          = 'single_point'
-mutation_type           = 'swap'
-mutation_probability    = 0.001             # percentagem
-num_parents_mating      = 50                # selecao de pais por interacao
+mutation_type           = 'scramble'
+mutation_probability    = 0.1             # percentagem
+num_parents_mating      = 50              # selecao de pais por interacao
+keep_parents            = 1               # elitismo - bom para quando nao converge rapidamente. 
 
 # atributos de configuracao do algoritmo
 save_best_solutions     = True
@@ -91,6 +92,7 @@ ga_instance = pygad.GA(
     num_genes=num_genes,
     sol_per_pop=sol_per_pop,
     parent_selection_type=parent_selection_type,
+    keep_parents=keep_parents,
     crossover_type=crossover_type,
     mutation_type=mutation_type,
     mutation_probability=mutation_probability,
@@ -102,7 +104,7 @@ ga_instance = pygad.GA(
 
 ga_instance.run()
 ga_instance.plot_fitness()
-ga_instance.plot_genes()
+# ga_instance.plot_genes()
 
 solution, solution_fitness, solution_idx = ga_instance.best_solution()
 print("Parameters of the best solution : {solution}".format(solution=solution))
@@ -112,10 +114,12 @@ print("Best distance = {distance}".format(distance=calc_distance(solution)))
 # route_test = [1,3,2,5,7,4,6] # nao incluir 0
 # fitness(route_test, 1)
 
-resultado dominante e muito rapido - necessario alterar os parametros do algoritmo
-proxima aula:
-aumentar variabilidade dos genes 
-modificar a taxa de mutacao 
+# resultado dominante e muito rapido - necessario alterar os parametros do algoritmo
+# proxima aula:
+# aumentar variabilidade dos genes 
+# modificar a taxa de mutacao 
+
+# resultado otimizado utilizando mutation_type = 'scramble'. Os outros types nao chegaram a produzir um resultado otimizado
 
 
 
